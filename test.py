@@ -75,7 +75,7 @@ MENU
                     if type(v) == dict:
                         print("--- Equivalencias ---")
                         for x, y in v.items():
-                            print(f"    {x}: {y}")
+                            print(f"    {x}: ${y}")
                     else:
                         print(f"{k.capitalize()}: {v}")
             else: print(f"Ocurrió un error inesperado #{response.status_code}")
