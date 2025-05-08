@@ -2,7 +2,6 @@ import requests, re, os, datetime, statistics
 
 def convert(url):
     try:
-        response = requests.get(url + "currencies")
         arch = "cache_currencies.txt"
         if os.path.exists(f".\\cache\\{arch}"):
             currencies = {}
@@ -13,6 +12,7 @@ def convert(url):
                     currencies[k] = v
         else:
             os.mkdir(f".\\cache")
+            response = requests.get(url + "currencies")
             if response.status_code == 200:
                 currencies = response.json()
                 with open(f".\\cache\\{arch}", "w", encoding = 'utf-8') as f:
