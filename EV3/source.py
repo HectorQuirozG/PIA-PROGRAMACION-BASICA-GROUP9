@@ -9,12 +9,16 @@ def valid_mon(a, currencies):
         flag = True
     return flag
 
-def convert(base, change, qant, rates):
+def acortar(equi, qant = 1):
     x = 2
-    equi = float(rates[f'{base}, {change}'])
     while round(equi*qant, x) == 0:
         x += 1
-    conv = round(equi*qant, x)
+    acortado = round(equi*qant, x)
+    return acortado
+
+def convert(base, change, qant, rates):
+    equi = float(rates[f'{base}, {change}'])
+    conv = acortar(equi, qant)
     return conv
 
 def valid_fecha_format(fecha):
@@ -98,17 +102,7 @@ def buscar_fecha(valor, data):
                             valor = x
     return valor
 
-def historia(url, apend, fecha1, fecha2):
-    print("Monedas disponibles: ")
-    monedas = divis_fecha(url, apend, fecha1)
-    for i in monedas:
-        print(i)
-    flag = True
-    while flag:
-        base = input("Selecciona una moneda: ")
-        flag = valid_mon(base, monedas)
-    apend += f"?base={base}"
-    datos = registro(url, apend, base)
+def stats(datos, base):
     print("--- Estadísticas ---")
     maxi = max(datos[1])
     mini = min(datos[1])
@@ -119,12 +113,13 @@ def historia(url, apend, fecha1, fecha2):
     if base != "USD":
         media = statistics.mean(datos[1])
         mediana = statistics.median(datos[1])
-        rang = maxi - mini
-        varianza = np.var(datos[1])
-        desv_media = np.sqrt(varianza)
-        print(f"Valor promedio: ${media:.5f} USD")
-        print(f"Valor medio: ${mediana:.5f} USD")
-        print(f"Diferencia: ${rang:.5f} USD")
-        print(f"Varianza: ${varianza:.5f} USD")
-        print(f"Desviación media: ${desv_media:.5f} USD")
-    print("Advertencia: Algunas fechas no están registradas debido a que presentaron cambios mínimos")
+        print(f"Valor promedio: ${acortar(media)} USD")
+        print(f"Valor medio: ${acortar(mediana)} USD")
+        if len(datos[1]) > 1:
+            rang = maxi - mini
+            varianza = np.var(datos[1])
+            desv_media = np.sqrt(varianza)
+            print(f"Diferencia: ${acortar(rang)} USD")
+            print(f"Varianza: ${acortar(varianza)} USD")
+            print(f"Desviación media: ${acortar(desv_media)} USD")
+    print("Advertencia: Algunas fechas no están registradas debido a que fueron días feriados")

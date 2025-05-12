@@ -1,4 +1,4 @@
-import source, cargas
+import source, cargas, datetime
 
 def main():
     url = "https://api.frankfurter.dev/v1/"
@@ -46,14 +46,31 @@ Selecciona una opción: """
                 flag = True
                 while flag:
                     fecha1 = input("Ingresa la fecha inicial en formato YYYY-MM-DD: ")
+                    if fecha1 == "Hoy":
+                        fecha1 = str(datetime.date.today())
                     flag = source.valid_fecha(fecha1)
                 flag = True
                 while flag:
                     fecha2 = input("Ingresa la fecha final en formato YYYY-MM-DD: ")
-                    flag = source.valid_fecha(fecha2)
-                flag = source.valid_rango(fecha1, fecha2)
+                    if fecha2 == '':
+                        fecha2 = fecha1
+                    elif fecha2 == "Hoy":
+                        fecha2 = str(datetime.date.today())
+                    else:
+                        flag = source.valid_fecha(fecha2)
+                    flag = source.valid_rango(fecha1, fecha2)
             apend = f"{fecha1}..{fecha2}"
-            source.historia(url, apend, fecha1, fecha2)
+            print("Monedas disponibles: ")
+            monedas = source.divis_fecha(url, apend, fecha1)
+            for i in monedas:
+                print(i)
+            flag = True
+            while flag:
+                base = input("Selecciona una moneda: ")
+                flag = source.valid_mon(base, monedas)
+            apend += f"?base={base}"
+            datos = source.registro(url, apend, base)
+            stats = source.stats(datos, base)  
         elif op == 3:
             print("Saliendo...")
             break
