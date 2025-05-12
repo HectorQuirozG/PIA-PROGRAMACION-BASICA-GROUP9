@@ -102,24 +102,28 @@ def buscar_fecha(valor, data):
                             valor = x
     return valor
 
-def stats(datos, base):
+def stats(datos, base, fecha1, fecha2):
+    stats = {'Base': base,
+             'Fecha inicial': fecha1,
+             'Fecha final': fecha2,
+             }
     print("--- Estadísticas ---")
     maxi = max(datos[1])
     mini = min(datos[1])
     fech_max = buscar_fecha(maxi, datos[0])
     fech_min = buscar_fecha(mini, datos[0])
-    print(f"Máximo valor: {fech_max}")
-    print(f"Mínimo valor: {fech_min}")
+    stats['Máximo valor'] = fech_max
+    stats['Mínimo valor'] = fech_min
     if base != "USD":
         media = statistics.mean(datos[1])
         mediana = statistics.median(datos[1])
-        print(f"Valor promedio: ${acortar(media)} USD")
-        print(f"Valor medio: ${acortar(mediana)} USD")
+        stats['Valor promedio'] = f"${acortar(media)} USD"
+        stats['Valor medio'] = f"${acortar(mediana)} USD"
         if len(datos[1]) > 1:
             rang = maxi - mini
             varianza = np.var(datos[1])
             desv_media = np.sqrt(varianza)
-            print(f"Diferencia: ${acortar(rang)} USD")
-            print(f"Varianza: ${acortar(varianza)} USD")
-            print(f"Desviación media: ${acortar(desv_media)} USD")
-    print("Advertencia: Algunas fechas no están registradas debido a que fueron días feriados")
+            stats['Diferencia'] = f"${acortar(rang)} USD"
+            stats['Varianza'] = f"${acortar(varianza)} USD"
+            stats['Desviación media'] = f"${acortar(desv_media)} USD"
+    return stats

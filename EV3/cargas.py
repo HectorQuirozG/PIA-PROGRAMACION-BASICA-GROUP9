@@ -48,3 +48,15 @@ def carga_cache_rates(arch, url, apend, base, change):
                     f.write(f"{k}: {v}\n")
         else: print(f"Ocurrió un error inesperado #{response.status_code}")
     return rates
+
+def guardar_stats(arch, stats):
+    if not os.path.exists(f".\\stats"):
+        os.mkdir(f".\\stats")
+    elif os.path.exists(f".\\stats\\{arch}"):
+        print("El archivo ya existe")
+        return None
+    with open(f".\\stats\\{arch}", "w", encoding= 'utf-8') as f:
+        for k, v in stats.items():
+            f.write(f"{k}: {v}\n")
+    print("Archivo guardado con éxito")
+

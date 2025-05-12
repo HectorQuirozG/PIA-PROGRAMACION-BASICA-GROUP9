@@ -70,7 +70,19 @@ Selecciona una opción: """
                 flag = source.valid_mon(base, monedas)
             apend += f"?base={base}"
             datos = source.registro(url, apend, base)
-            stats = source.stats(datos, base)  
+            stats = source.stats(datos, base, fecha1, fecha2)
+            for k, v in stats.items():
+                print(f"{k}: {v}")
+            print("Advertencia: Algunas fechas no están registradas debido a que fueron días feriados")
+            while True:
+                op = input("¿Desea guardar la información? (Y/N): ")
+                if op == "Y":
+                    arch = f"{base}_stats_{fecha1}..{fecha2}.txt"
+                    cargas.guardar_stats(arch, stats)
+                    break
+                elif op == "N":
+                    break
+                else: print("Opción inválida")
         elif op == 3:
             print("Saliendo...")
             break
