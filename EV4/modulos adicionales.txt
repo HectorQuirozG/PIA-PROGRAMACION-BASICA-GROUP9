@@ -3,6 +3,9 @@ A este proyecto fueron añadidos dos módulos adicionales que no fueron vistos e
 Módulo datetime:
 Es un módulo que ayuda a trabajar con fechas y horas, fue necesario para validar las fechas ingresadas por el usuario y para graficar los datos.
 
+Módulo pandas:
+Similar a openpyxl, pero más directo y práctico.
+
 Módulo tkinter:
 Ayuda a las interacciones usuario - máquina de forma gráfica e intuitiva. Su uso en este proyecto se limita a la entrada de la ruta de un archivo a leer. (Este es de hecho el módulo que provocaba intestabilidad.)
 
