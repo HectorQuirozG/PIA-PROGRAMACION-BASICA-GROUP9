@@ -1,0 +1,19 @@
+&&&&& Guardado de stats EUR &&&&&
+
+2025-05-09: 1.1252
+2025-05-12: 1.1106
+2025-05-13: 1.1112
+2025-05-14: 1.1214
+2025-05-15: 1.1185
+2025-05-16: 1.1194
+
+Base: EUR
+Fecha inicial: 2025-05-10
+Fecha final: 2025-05-18
+Máximo valor: 2025-05-09
+Mínimo valor: 2025-05-12
+Valor promedio: $1.12 USD
+Valor medio: $1.12 USD
+Diferencia: $0.01 USD
+Varianza: $3e-05 USD
+Desviación media: $0.01 USD
