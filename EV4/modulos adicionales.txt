@@ -1,1 +1,10 @@
+A este proyecto fueron añadidos dos módulos adicionales que no fueron vistos en clase, pero fueron necesarios para el correcto funcionamiento de los scripts.
 
+Módulo datetime:
+Es un módulo que ayuda a trabajar con fechas y horas, fue necesario para validar las fechas ingresadas por el usuario y para graficar los datos.
+
+Módulo tkinter:
+Ayuda a las interacciones usuario - máquina de forma gráfica e intuitiva. Su uso en este proyecto se limita a la entrada de la ruta de un archivo a leer. (Este es de hecho el módulo que provocaba intestabilidad.)
+
+Extra:
+Una instrucción fue añadida a inicio del main(), que utiliza comandos de os y sys. Tal instrucción es para posicionar al intérprete de ejecución de consola en el directorio donde se ejecuta el script. Necesario para guardar los archivos en una carpeta específica.
