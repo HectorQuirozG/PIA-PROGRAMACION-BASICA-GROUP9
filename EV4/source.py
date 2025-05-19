@@ -156,7 +156,8 @@ def stats(datos, base, fecha1, fecha2):
     return stats
 
 def graficar_fechas(fechas,valores,base,formato):
-    plt.figure(figsize=(20, 15))
+    print("Cargando imagen...")
+    plt.figure(figsize=(20, 10))
     if formato == 1:
         plt.plot(fechas, valores, marker='o')
     elif formato == 2:
@@ -174,10 +175,11 @@ def graficar_fechas(fechas,valores,base,formato):
     plt.show()
 
 def graficar_fechaslargoplazo(fechas, history, base, formato, destino="USD"):
-    plt.figure(figsize=(20, 15))
+    print("Cargando imagen...")
+    plt.figure(figsize=(20, 10))
     fechas_dt = [datetime.datetime.strptime(f, "%Y-%m-%d") for f in fechas]
     if formato == 1:
-        plt.plot(fechas_dt, history, marker='o')
+        plt.plot(fechas_dt, history)
     elif formato == 2:
         plt.bar(fechas_dt, history)
     elif formato == 3:
@@ -197,12 +199,18 @@ def graficar_fechaslargoplazo(fechas, history, base, formato, destino="USD"):
 
 def validar_arch(arch):
     verf = re.compile(r'&{5}\sGuardado de stats [A-Z]{3}\s&{5}')
-    with open(arch, "r", encoding = 'utf-8') as f:
-        mo = verf.search(f.readline())
-    if mo != None:
-        return True
-    else:
+    try:
+        with open(arch, "r", encoding = 'utf-8') as f:
+            mo = verf.search(f.readline())
+    except UnicodeDecodeError:
         return False
+    except TypeError:
+        return False
+    else:
+        if mo != None:
+            return True
+        else:
+            return False
 
 def buscar_base(arch):
     with open(arch, "r", encoding = 'utf-8') as f:

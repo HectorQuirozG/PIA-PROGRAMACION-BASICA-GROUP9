@@ -4,12 +4,6 @@ def main():
     ruta_script = os.path.abspath(sys.argv[0])
     carpeta_script = os.path.dirname(ruta_script)
     os.chdir(carpeta_script)
-
-    if sys.stdout.isatty():
-        print("""ADVERTENCIA:
-Este script se está ejecutando desde un entorno de desarrollo genérico.
-Algunas funciones gráficas o de archivo pueden fallar.
-Se recomienda ejecutar el script desde la terminal o desde el explorador de archivos.""")
     url = "https://api.frankfurter.dev/v1/"
     while True:
         menu = """----------------------------
@@ -24,6 +18,7 @@ Selecciona una opción: """
 2. Gráfico de barras
 3. Gráfico horizontal
 4. Diagrama de dispersión
+5. Sin gráfica
 Selecciona una opción: """
         try: op = int(input(menu))
         except(ValueError): op = None
@@ -98,27 +93,28 @@ Selecciona una opción: """
                 apend += f"?base={base}"
                 datos, history, fechas = source.registro(url, apend, base)
                 stats = source.stats((datos, history), base, fecha1, fecha2)
+                for k, v in stats.items():
+                    print(f"{k}: {v}")
                 print("Un gráfico está a punto de generarse...")
                 while True:
                     try:
                         formato = int(input(mgraph))
-                        if formato >= 1 and formato <= 4:
+                        if formato >= 1 and formato <= 5:
                             break
                     except ValueError: print("Opción inválida")
-                source.graficar_fechas(fechas, history, base, formato)
-                for k, v in stats.items():
-                    print(f"{k}: {v}")
+                if formato >= 1 and formato <= 4:
+                    source.graficar_fechas(fechas, history, base, formato)
                 equivalencias = source.zipeo(fechas, history)
                 print("Advertencia: Algunas fechas no están registradas debido a que fueron días feriados")
                 print("\n")
                 while True:
                     op = input("¿Desea guardar la información? (Y/N): ")
-                    if op == "Y":
+                    if op == "Y" or op == "y":
                         arch = f"{base}_stats_{fecha1}..{fecha2}"
                         cargas.guardar_stats(arch, equivalencias, stats, base)
                         cargas.generar_excel(arch, equivalencias)
                         break
-                    elif op == "N":
+                    elif op == "N" or op == "n":
                         break
                     else: print("Opción inválida")        
             elif a == 2:
@@ -154,10 +150,11 @@ Selecciona una opción: """
                 while True:
                     try:
                         formato = int(input(mgraph))
-                        if formato >= 1 and formato <= 4:
+                        if formato >= 1 and formato <= 5:
                             break
                     except ValueError: print("Opción inválida")
-                source.graficar_fechaslargoplazo(fechas,history,base,formato)
+                if formato >= 1 and formato <= 4:
+                    source.graficar_fechaslargoplazo(fechas,history,base,formato)
                 stats = source.stats((data, history), base, fecha1, fecha2)
                 equivalencias = source.zipeo(fechas, history)
                 for k, v in stats.items():
@@ -191,15 +188,17 @@ Selecciona una opción: """
                     while True:
                         try:
                             formato = int(input(mgraph))
-                            if formato >= 1 and formato <= 4:
+                            if formato >= 1 and formato <= 5:
                                 break
                         except ValueError: print("Opción inválida")
-                    source.graficar_fechaslargoplazo(fechas, history, base, formato)
+                    if formato >= 1 and formato <= 4:
+                        source.graficar_fechaslargoplazo(fechas, history, base, formato)
                     stats = cargas.procesar_stats(arch)
                     print(f"----- Estadísticas {base} -----")
                     for k, v in stats.items():
                         print(f"{k}: {v}")
                 except: print("Ocurrió un error inesperado. Es posible que el archivo esté dañado.")
+            else: print("El archivo no es compatible")
         elif op == 4:
             print("Saliendo...")
             break

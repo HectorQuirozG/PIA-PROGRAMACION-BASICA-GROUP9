@@ -69,12 +69,11 @@ def guardar_stats(arch, equivalencias, stats, base):
 
 def buscar_arch():
     root = tk.Tk()
+    arch = filedialog.askopenfilename()
+    root.update()
     root.withdraw()
-    try:
-        archivo = filedialog.askopenfilename()
-    finally:
-        root.destroy()
-    return archivo
+    root.destroy()
+    return arch
 
 def procesar_equivalencias(arch):    
     with open(arch, "r", encoding = 'utf-8') as f:
