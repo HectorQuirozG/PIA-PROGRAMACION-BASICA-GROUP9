@@ -4,6 +4,6 @@ Este conjunto de scripts requiere tener instalado:
 - numpy
 - tkinter
 
-Es necesario correr este script DIRECTAMENTE desde el explorador de archivos o desde la consola CMD para utilizar las funciones de carga de archivos txt para graficar (opción 3). Las demás opciones pueden utilizarse sin problema en cualquier entorno.
+Es recomendable correr este script DIRECTAMENTE desde el explorador de archivos o desde la consola CMD para utilizar las funciones de carga de archivos txt para graficar (opción 3). Aunque ya parchamos los problemas que se tenían para ejecutar la carga de archvivos en IDLE y VSCode, aún puede haber problemas de optimización de recursos. Las demás opciones pueden utilizarse sin problema en cualquier entorno.
 
 Utilice el programa plenamente y sin restricciones.
